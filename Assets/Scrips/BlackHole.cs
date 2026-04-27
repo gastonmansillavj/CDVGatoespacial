@@ -1,24 +1,31 @@
 using UnityEngine;
 
 public class BlackHole : MonoBehaviour {
-    [Header("Configuración")]
-    public float attractionForce = 8f; // Debe ser menor a la fuerza de tu nave
-    public float damagePerSecond = 5f; // Opcional: daño por estar dentro
+    [Header("Configuración de Atracción")]
+    public float attractionForce = 8f; 
+
+    [Header("Configuración de Lentitud")]
+    [Range(0, 1)] 
+    public float slowMultiplier = 0.4f; // 0.4 significa que la nave tendrá el 40% de su fuerza
 
     private void OnTriggerStay2D(Collider2D other) {
-        // Buscamos si lo que entró tiene física
+        // 1. Atracción Física (Lo que ya teníamos)
         if (other.TryGetComponent(out Rigidbody2D rb)) {
-            // 1. Calcular la dirección hacia el centro del agujero negro
             Vector2 direction = (Vector2)transform.position - rb.position;
-            
-            // 2. Aplicar la fuerza de atracción
-            // Usamos ForceMode2D.Force para que sea constante
             rb.AddForce(direction.normalized * attractionForce);
+        }
 
-            // 3. Opcional: Aplicar daño modularmente si tiene salud
-            if (other.TryGetComponent(out IDamageable health)) {
-                health.TakeDamage(damagePerSecond * Time.deltaTime);
-            }
+        // 2. Reducción de Velocidad (NUEVO)
+        // Buscamos el script de movimiento de la nave
+        if (other.TryGetComponent(out ShipMovement ship)) {
+            ship.currentSpeedModifier = slowMultiplier;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        // 3. Restaurar Velocidad al salir
+        if (other.TryGetComponent(out ShipMovement ship)) {
+            ship.currentSpeedModifier = 1f;
         }
     }
 }
