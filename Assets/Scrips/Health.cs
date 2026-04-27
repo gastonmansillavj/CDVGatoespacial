@@ -1,37 +1,39 @@
 using UnityEngine;
-using UnityEngine.Events; // Para usar UnityEvents
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamageable {
-    [SerializeField] private ShipData shipData; // Usamos tu ScriptableObject
+    [SerializeField] private ShipData shipData;
     private float currentHealth;
 
-    // Eventos para la UI y efectos
-    // El float es para pasar el porcentaje (0 a 1)
-    public UnityEvent<float> OnHealthChanged; 
+    public UnityEvent<float> OnHealthChanged;
     public UnityEvent OnDeath;
+    // Nuevo evento para los efectos de feedback (Flash, Knockback, Shake)
+    public UnityEvent<Vector2> OnHit; 
 
     void Start() {
-        if (shipData != null) {
-            currentHealth = shipData.maxHealth;
-        }
+        if (shipData != null) currentHealth = shipData.maxHealth;
     }
 
-    public void TakeDamage(float amount) {
+    // Firma actualizada para cumplir con la interfaz
+    public void TakeDamage(float amount, Vector2 hitPosition) {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, shipData.maxHealth);
 
-        // Notificamos a quien esté escuchando (ej. la UI)
-        float percentage = currentHealth / shipData.maxHealth;
-        OnHealthChanged?.Invoke(percentage);
+        OnHealthChanged?.Invoke(currentHealth / shipData.maxHealth);
+        
+        // Disparamos el feedback pasando la posición del impacto
+        OnHit?.Invoke(hitPosition);
 
-        if (currentHealth <= 0) {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
     }
 
     private void Die() {
         OnDeath?.Invoke();
-        Debug.Log(gameObject.name + " explotó.");
-        // Aquí podrías instanciar partículas o desactivar el objeto
+    }
+
+    // Método para el Power-up de curación (no necesita posición)
+    public void AddHealth(float amount) {
+        currentHealth = Mathf.Min(currentHealth + amount, shipData.maxHealth);
+        OnHealthChanged?.Invoke(currentHealth / shipData.maxHealth);
     }
 }

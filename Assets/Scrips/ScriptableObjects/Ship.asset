@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShipData
   thrustForce: 10
   rotationTorque: 4
-  maxHealth: 100
+  maxHealth: 5

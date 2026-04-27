@@ -20,8 +20,9 @@ public class DamageDealer : MonoBehaviour {
     private void ApplyDamage(GameObject target) {
         // 1. Intentar hacer daño
         if (target.TryGetComponent(out IDamageable damageable)) {
-            damageable.TakeDamage(damage);
-        }
+        // Le pasamos el daño y la posición de este objeto (el que golpea)
+        damageable.TakeDamage(damage, transform.position);
+    }
 
         // 2. Intentar aplicar estado (Hielo, etc.)
         if (statusEffect != null && target.TryGetComponent(out EffectReceiver receiver)) {
