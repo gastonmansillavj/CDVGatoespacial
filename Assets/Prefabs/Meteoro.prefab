@@ -40,7 +40,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2986102288503306250}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4279687534103835679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -222,7 +222,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4423392794467693104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -313,7 +313,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4455926158223901323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -404,7 +404,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5091632046841922674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -481,8 +481,8 @@ Transform:
   m_GameObject: {fileID: 5785824213006311666}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.135, y: -0.109, z: 0}
-  m_LocalScale: {x: 0.2445875, y: 0.19567, z: 0.19567}
+  m_LocalPosition: {x: -0.012, y: 0.009, z: 0}
+  m_LocalScale: {x: 0.21393365, y: 0.20336282, z: 0.16107945}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1505018682389999407}
@@ -536,8 +536,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 6
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6117647, g: 0.31764707, b: 0.16078432, a: 1}
+  m_Sprite: {fileID: 7095659185595264959, guid: 366fcf76ef61e8c4baf29e043c11289c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -560,6 +560,9 @@ GameObject:
   - component: {fileID: -8774408709316870719}
   - component: {fileID: -8220445212340505759}
   - component: {fileID: -7680412729419563922}
+  - component: {fileID: -4632579037074750572}
+  - component: {fileID: -6650344789794084104}
+  - component: {fileID: -1622046479724436727}
   m_Layer: 0
   m_Name: Meteoro
   m_TagString: Meteor
@@ -724,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageDealer
   damage: 1
-  destroyOnHit: 1
+  destroyOnHit: 0
   statusEffect: {fileID: 0}
 --- !u!114 &-7680412729419563922
 MonoBehaviour:
@@ -744,10 +747,80 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4632579037074750572}
+        m_TargetAssemblyTypeName: FragmentOnDeath, Assembly-CSharp
+        m_MethodName: SpawnFragments
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -6650344789794084104}
+        m_TargetAssemblyTypeName: HandleDeath, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-4632579037074750572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7417125113660378448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9858afe5f53f38340907c392d5870031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FragmentOnDeath
+  fragmentPrefabs:
+  - {fileID: 1143945387826597181, guid: 1e2eecb596e4b4f4bb6ce94debbaf8d9, type: 3}
+  - {fileID: 1143945387826597181, guid: 628143366b1a1e341a462543a519e310, type: 3}
+  - {fileID: 1143945387826597181, guid: 45455757aecfdcc4bb0c778d5aad9352, type: 3}
+  - {fileID: 1143945387826597181, guid: 4641c624858721a4a9634d812e9325e7, type: 3}
+  - {fileID: 1143945387826597181, guid: ecf8400a0eacafe408f907839a293ece, type: 3}
+  explosionForce: 5
+  lifetime: 3
+--- !u!114 &-6650344789794084104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7417125113660378448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d174c9de4ac14748bccfd3c6ef6b9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandleDeath
+--- !u!114 &-1622046479724436727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7417125113660378448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612583bd573da8f4ab18957bc462dd19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConstantRotation
+  rotationSpeed: 10
+  randomStartRotation: 1
 --- !u!1 &8848400558220312411
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +861,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8848400558220312411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

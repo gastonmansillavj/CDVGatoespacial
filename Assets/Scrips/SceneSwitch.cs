@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneSwitch : MonoBehaviour {
     public void IniciarJuego()
     {
-        SceneManager.LoadScene("Nivel1");
+        SceneManager.LoadScene("SeleccionPersonaje");
     }
     public void IrOpciones()
     {
