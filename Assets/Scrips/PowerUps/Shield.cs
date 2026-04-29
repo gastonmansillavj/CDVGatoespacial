@@ -31,7 +31,7 @@ public class Shield : MonoBehaviour {
             DeactivateShield();
 
             // 3. Opcional: Destruir el meteoro para que no atraviese la nave
-            Destroy(other.gameObject);
+           // Destroy(other.gameObject);
         }
     }
 

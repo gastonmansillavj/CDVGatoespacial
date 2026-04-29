@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necesario para cambiar de escena
 
 public class UIPanelController : MonoBehaviour {
     [SerializeField] private GameObject panelObject;
@@ -13,15 +14,16 @@ public class UIPanelController : MonoBehaviour {
         Time.timeScale = 1f;
     }
 
-    // Métodos para los botones
     public void RestartScene() {
-    // ¡Fundamental! Si no reseteas el tiempo aquí, la nueva escena cargará congelada
-    Time.timeScale = 1f; 
-    
-    // Cargamos la escena actual
-    UnityEngine.SceneManagement.SceneManager.LoadScene(
-        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-    );
-}
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // --- NUEVO MÉTODO PARA EL MENÚ ---
+    public void GoToMainMenu(string sceneName) {
+        Time.timeScale = 1f; // ¡Importante! Resetear el tiempo antes de irse
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void QuitGame() => Application.Quit();
 }
