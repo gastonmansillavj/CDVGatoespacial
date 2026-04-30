@@ -4,22 +4,32 @@ public class DeathMenuLinker : MonoBehaviour
 {
     void Start()
     {
-        // 1. Buscamos el Canvas (que siempre está activo)
-        Canvas canvas = FindFirstObjectByType<Canvas>();
+        // 1. Buscamos TODOS los Canvas que hay en la escena
+        Canvas[] todosLosCanvas = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        Canvas canvasPrincipal = null;
 
-        if (canvas != null)
+        // 2. Buscamos cuál es el Canvas principal (el que no es World Space)
+        foreach (Canvas c in todosLosCanvas)
         {
-            // 2. Buscamos entre sus hijos (incluyendo desactivados)
-            UIPanelController[] todosLosPaneles = canvas.GetComponentsInChildren<UIPanelController>(true);
-
-            foreach (UIPanelController panel in todosLosPaneles)
+            if (c.renderMode == RenderMode.ScreenSpaceOverlay)
             {
-                // 3. Filtramos por el nombre del objeto para encontrar el de Muerte
-                if (panel.gameObject.name == "MenuMuerte")
+                canvasPrincipal = c;
+                break;
+            }
+        }
+
+        if (canvasPrincipal != null)
+        {
+            // 3. Buscamos el MenuMuerte dentro de ese Canvas principal
+            UIPanelController[] paneles = canvasPrincipal.GetComponentsInChildren<UIPanelController>(true);
+
+            foreach (UIPanelController p in paneles)
+            {
+                if (p.gameObject.name == "MenuMuerte")
                 {
-                    GetComponent<Health>().OnDeath.AddListener(() => panel.ShowPanel(true));
-                    Debug.Log("Conectado con éxito al menú: " + panel.gameObject.name);
-                    break; 
+                    GetComponent<Health>().OnDeath.AddListener(() => p.ShowPanel(true));
+                    Debug.Log("Linker: Conectado al Menú de Muerte del Canvas Principal");
+                    break;
                 }
             }
         }
