@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SeleccionPersonaje.unity
     guid: acc2f1265b0d2534089a1f1ca3a67f4e
   - enabled: 1
+    path: Assets/Scenes/Narrativa.unity
+    guid: f5be2aec2b304a24b82981c854c9b487
+  - enabled: 1
     path: Assets/Scenes/Nivel1.unity
     guid: 8455fc16345e962478401e1145ab9b69
   m_configObjects:
